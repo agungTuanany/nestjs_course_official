@@ -1,31 +1,31 @@
-import { Controller, Get, Param, Body, Post, HttpCode, HttpStatus, Res } from '@nestjs/common';
+import { Controller, Get, Param, Body, Post, HttpCode, HttpStatus, Res, Patch, Delete } from '@nestjs/common';
 
 @Controller('coffees')
 export class CoffeesController {
 
     @Get()
     findAll() {
-        return "This action returns all the coffers.";
+        return "This action returns all the coffees.";
     }
 
     // Or with native handle status use '@Res()'
     // XXX CAUTION: it's not the best practice to use native handle status code. XXX
     // @Get()
     // findAll(@Res() response) {
-    //     response.status(200).send("This action returns all the coffers.");
-    //     // return "This action returns all the coffers.";
+    //     response.status(200).send("This action returns all the coffees.");
+    //     // return "This action returns all the coffees.";
     // }
 
     // @Get(':id')
     // findOne(@Param() params) {
-    //     return `This action returns ==> #${params.id} the coffers.`;
+    //     return `This action returns ==> #${params.id} the coffees.`;
     // }
 
     // Or with constraint Param object
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return `This action returns #${id} the coffers.`;
+        return `This action returns #${id} the coffees.`;
     }
 
     @Post()
@@ -34,7 +34,6 @@ export class CoffeesController {
         return body;
     }
 
-
     // Or with constrain Body object
     // XXX CAUTION: other properties WON'T be validated XXX
     // @Post()
@@ -42,4 +41,13 @@ export class CoffeesController {
     //     return body;
     // }
 
+    @Patch(':id')
+    update(@Param('id') id: string, @Body() body) {
+        return `This action returns #${id} the coffees.`;
+    }
+
+    @Delete(':id')
+    remove(@Param('id') id: string) {
+        return `This action removes #${id} coffee`;
+    }
 }
