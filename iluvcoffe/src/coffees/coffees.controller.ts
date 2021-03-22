@@ -1,12 +1,19 @@
-import { Controller, Get, Param, Body, Post, HttpCode, HttpStatus, Res, Patch, Delete } from '@nestjs/common';
+import { Controller, Get, Param, Body, Post, HttpCode, HttpStatus, Res, Patch, Delete, Query } from '@nestjs/common';
 
 @Controller('coffees')
 export class CoffeesController {
 
     @Get()
-    findAll() {
-        return "This action returns all the coffees.";
+    findAll(@Query() paginationQuery) {
+        const { limit, offset } = paginationQuery;
+        return `This action returns all the coffees. Limit ${limit}, offset: ${offset}`;
     }
+
+    // @Get()
+    // findAll() {
+    //     return "This action returns all the coffees.";
+    // }
+
 
     // Or with native handle status use '@Res()'
     // XXX CAUTION: it's not the best practice to use native handle status code. XXX
@@ -22,7 +29,6 @@ export class CoffeesController {
     // }
 
     // Or with constraint Param object
-
     @Get(':id')
     findOne(@Param('id') id: string) {
         return `This action returns #${id} the coffees.`;
