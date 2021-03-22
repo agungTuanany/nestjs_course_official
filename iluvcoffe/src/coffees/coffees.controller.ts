@@ -1,11 +1,20 @@
-import { Controller, Get, Param, Body, Post } from '@nestjs/common';
+import { Controller, Get, Param, Body, Post, HttpCode, HttpStatus, Res } from '@nestjs/common';
 
 @Controller('coffees')
 export class CoffeesController {
+
     @Get()
     findAll() {
         return "This action returns all the coffers.";
     }
+
+    // Or with native handle status use '@Res()'
+    // XXX CAUTION: it's not the best practice to use native handle status code. XXX
+    // @Get()
+    // findAll(@Res() response) {
+    //     response.status(200).send("This action returns all the coffers.");
+    //     // return "This action returns all the coffers.";
+    // }
 
     // @Get(':id')
     // findOne(@Param() params) {
@@ -19,7 +28,8 @@ export class CoffeesController {
         return `This action returns #${id} the coffers.`;
     }
 
-    // @Post()
+    @Post()
+    @HttpCode(HttpStatus.GONE)
     create(@Body() body) {
         return body;
     }
