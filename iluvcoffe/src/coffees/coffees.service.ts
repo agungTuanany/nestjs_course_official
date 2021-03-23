@@ -29,11 +29,11 @@ export class CoffeesService {
         // return this.coffees.find(item => item.id === +id);
     }
 
-    create(createCoffeDto: any) {
-        this.coffees.push(createCoffeDto);
+    create(createCoffeeDto: any) {
+        this.coffees.push(createCoffeeDto);
     }
 
-    update(id: string, updateCoffeDto: any) {
+    update(id: string, updateCoffeeDto: any) {
         const existingCoffee = this.findOne(id);
 
         if (existingCoffee) {
