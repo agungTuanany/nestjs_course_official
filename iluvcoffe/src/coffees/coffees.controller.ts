@@ -6,7 +6,7 @@ import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 @Controller('coffees')
 export class CoffeesController {
 
-    constructor(private readonly coffeesService:  CoffeesService) {}
+    constructor(private readonly coffeesService: CoffeesService) {}
 
     @Get()
     findAll(@Query() paginationQuery) {//{{{
@@ -15,16 +15,15 @@ export class CoffeesController {
     }//}}}
 
     @Get(':id')
-    findOne(@Param('id') id: string) {//{{{
-        return this.coffeesService.findOne(id);
+    findOne(@Param('id') id: number) {//{{{
+        console.log("GET ===>", typeof id)
+        return this.coffeesService.findOne('' + id);
     }//}}}
 
     @Post()
     create(@Body() createCoffeeDto: CreateCoffeeDto) {//{{{
-        const result = this.coffeesService.create(createCoffeeDto);
-
-        console.log(result);
-        return result;
+        console.log("===>", createCoffeeDto instanceof CreateCoffeeDto);
+        return this.coffeesService.create(createCoffeeDto);
     }//}}}
 
     @Patch(':id')
