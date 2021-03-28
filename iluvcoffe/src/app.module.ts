@@ -14,9 +14,10 @@ import { CoffeesModule } from "./coffees/coffees.module";
             port: 5432,
             username: "postgres",
             password: "pass123",
-            database: "postgres",
+            // database: "postgres",
+            database: "postgres1",
             autoLoadEntities: true,
-            synchronize: true,
+            synchronize: true,      // COMMENT THIS in production - mode
         }),
     ],
     controllers: [AppController],

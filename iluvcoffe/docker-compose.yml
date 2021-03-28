@@ -8,3 +8,4 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_PASSWORD: pass123
+      POSTGRES_DB: postgres1      # comment this if your db-name is still: 'postgres' in AppModule - class
