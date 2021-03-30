@@ -105,14 +105,12 @@ export class CoffeesService {
             await queryRunner.manager.save(recommendEvent);
 
             await queryRunner.commitTransaction();
-        }
-        catch (err) {
+        } catch (err) {
             await queryRunner.rollbackTransaction();
-        }
-        finally {
+        } finally {
             await queryRunner.release();
         }
-    }//}}}
+    } //}}}
 
     private async preloadFlavorByName(name: string): Promise<Flavor> {
         //{{{

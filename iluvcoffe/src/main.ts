@@ -11,12 +11,10 @@ async function bootstrap() {
             transform: true,
             forbidNonWhitelisted: true,
             transformOptions: {
-                enableImplicitConversion: true
+                enableImplicitConversion: true,
             },
         }),
     );
-    await app.listen(3002);
-
-    // console.log("app is run on port: 3002");
+    await app.listen(3000);
 }
 bootstrap();
