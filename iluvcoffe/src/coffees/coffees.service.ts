@@ -23,7 +23,7 @@ export class CoffeesService {
         @Inject(COFFEE_BRANDS)
         coffeeBrands: string[],
     ) {
-        console.log("[!!] CoffeesService instantiated", coffeeBrands);
+        console.log("[!!] CoffeesService instantiated");
     } //}}}
 
     findAll(paginationQuery: PaginationQueryDto) {
