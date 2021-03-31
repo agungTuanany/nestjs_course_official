@@ -15,7 +15,7 @@ import { DatabaseModule } from "../database/database.module";
             // autoLoadEntities: true,
             // synchronize: true, // COMMENT THIS in production - mode
         }),
-        CoffeesModule
+        CoffeesModule,
     ],
     providers: [CoffeeRatingService],
 })
