@@ -10,7 +10,10 @@ import { DatabaseModule } from "./database/database.module";
 
 @Module({
     imports: [
-        ConfigModule.forRoot(),
+        ConfigModule.forRoot({
+            envFilePath: [".env", ".environment"],
+            // ignoreEnvFile: true,
+        }),
         CoffeesModule,
         TypeOrmModule.forRoot({
             type: "postgres",

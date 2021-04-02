@@ -1,0 +1,12 @@
+/*
+* CAUTION:  never SUBMIT or PUSH this credential '.env' - file in github or tracked on Git!.
+* This only for course and education purpose.
+* change this '._env' to '.env' in development or production mode.
+*/
+
+DATABASE_USER=postgres
+DATABASE_PASSWORD=pass123
+DATABASE_NAME=postgres1
+DATABASE_PORT=5432
+DATABASE_HOST=localhost
+
