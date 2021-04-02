@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import{ ConfigModule } from "@nestjs/config";
+import { ConfigModule } from "@nestjs/config";
+import * as Joi from "@hapi/joi";
 
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
@@ -12,7 +13,11 @@ import { DatabaseModule } from "./database/database.module";
     imports: [
         ConfigModule.forRoot({
             envFilePath: [".env", ".environment"],
-            // ignoreEnvFile: true,
+            // ignoreEnvFile: true
+            validationSchema: Joi.object({
+                DATABASE_HOST: Joi.required(),
+                DATABASE_PORT: Joi.number().default(5432),
+            }),
         }),
         CoffeesModule,
         TypeOrmModule.forRoot({
