@@ -8,6 +8,7 @@ import { AppService } from "./app.service";
 import { CoffeesModule } from "./coffees/coffees.module";
 import { CoffeeRatingModule } from "./coffee-rating/coffee-rating.module";
 import { DatabaseModule } from "./database/database.module";
+import appConfig from "./config/app.config";
 
 @Module({
     imports: [
@@ -18,6 +19,7 @@ import { DatabaseModule } from "./database/database.module";
                 DATABASE_HOST: Joi.required(),
                 DATABASE_PORT: Joi.number().default(5432),
             }),
+            load: [appConfig],
         }),
         CoffeesModule,
         TypeOrmModule.forRoot({
