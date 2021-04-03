@@ -1,6 +1,7 @@
-import { Injectable, Inject, NotFoundException, Scope } from "@nestjs/common";
+import { Injectable, NotFoundException, Scope } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Connection, Repository } from "typeorm";
+import { ConfigService } from "@nestjs/config";
 
 import { Coffee } from "./entities/coffee.entity";
 import { Flavor } from "./entities/flavor.entity";
@@ -9,23 +10,7 @@ import { UpdateCoffeeDto } from "./dto/update-coffee.dto";
 import { PaginationQueryDto } from "../common/dto/pagination-query.dto";
 import { Event } from "../events/entities/event.entity";
 
-// non class based providers
-import { COFFEE_BRANDS } from "./coffees.constants";
-
-//{{{ /*-- provider - scopes --/
-
-/* 'default' provider - scope */
-//@Injectable({ scope: Scope.DEFAULT })
-
-/* 'transient' provider - scope */
-//@Injectable({ scope: Scope.TRANSIENT })
-
-/* 'request' provider - scope */
-//@Injectable({ scope: Scope.REQUEST })
-
-//}}}
-
-@Injectable({ scope: Scope.REQUEST })
+@Injectable({ scope: Scope.DEFAULT })
 export class CoffeesService {
     constructor(
         //{{{
@@ -34,10 +19,12 @@ export class CoffeesService {
         @InjectRepository(Flavor)
         private readonly flavorRepository: Repository<Flavor>,
         private readonly connection: Connection,
-        @Inject(COFFEE_BRANDS)
-        coffeeBrands: string[],
+        private readonly configService: ConfigService,
     ) {
-        console.log("[!!] CoffeesService instantiated");
+        const databaseHost = this.configService.get<string>("DATABASE_HOST", "localhost");
+
+        console.log("[!!] CoffeesService - instantiated");
+        console.log(`[!!] ConfigService - "DATABASE_HOST": - "${databaseHost}"`);
     } //}}}
 
     findAll(paginationQuery: PaginationQueryDto) {
