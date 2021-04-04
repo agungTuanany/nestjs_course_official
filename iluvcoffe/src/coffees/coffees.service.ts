@@ -26,7 +26,6 @@ export class CoffeesService {
     ) {
         console.log("[!!] CoffeesService - instantiated");
         console.log(`[!!] ConfigService - instantiated | "DATABASE_FOO": - ${coffeesConfiguration.foo}`);
-        console.log(coffeesConfiguration.foo);
     } //}}}
 
     findAll(paginationQuery: PaginationQueryDto) {
