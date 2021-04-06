@@ -1,16 +1,4 @@
-import {
-    Controller,
-    Get,
-    Param,
-    Body,
-    Post,
-    Patch,
-    Delete,
-    Query,
-    Inject,
-    UsePipes,
-    ValidationPipe,
-} from "@nestjs/common";
+import { Controller, Get, Param, Body, Post, Patch, Delete, Query, Inject, ValidationPipe } from "@nestjs/common";
 import { REQUEST } from "@nestjs/core";
 import { Request } from "express";
 
@@ -18,6 +6,7 @@ import { CoffeesService } from "./coffees.service";
 import { CreateCoffeeDto } from "./dto/create-coffee.dto";
 import { UpdateCoffeeDto } from "./dto/update-coffee.dto";
 import { PaginationQueryDto } from "../common/dto/pagination-query.dto";
+import { Public } from "../common/decorators/public.decorator";
 
 /*-- Global Pipes --*/
 // @UsePipes(ValidationPipe)
@@ -35,6 +24,7 @@ export class CoffeesController {
         console.log("[!!] CoffeesController created");
     } //}}}
 
+    @Public()
     @Get()
     findAll(@Query() paginationQuery: PaginationQueryDto) {
         //{{{
