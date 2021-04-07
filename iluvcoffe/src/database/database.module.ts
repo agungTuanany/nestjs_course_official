@@ -27,7 +27,7 @@ export class DatabaseModule {
     }
 
     static register(options: ConnectionOptions): DynamicModule {
-        console.log("[!] DatabaseModule.register() - instantiated");
+        console.log("[!] DatabaseModule - instantiated");
         return {
             module: DatabaseModule,
             providers: [
