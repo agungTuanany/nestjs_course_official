@@ -4,6 +4,7 @@ import { HttpException, ValidationPipe } from "@nestjs/common";
 import { AppModule } from "./app.module";
 import { ApiKeyGuard } from "./common/guard/api-key.guard";
 import { WrapResponseInterceptor } from "./common/interceptor/wrap-response.interceptor";
+import { TimeoutInterceptor } from "./common/interceptor/timeout.interceptor";
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
@@ -19,7 +20,7 @@ async function bootstrap() {
         }),
     );
     // app.useGlobalGuards(new ApiKeyGuard());
-    app.useGlobalInterceptors(new WrapResponseInterceptor());
+    app.useGlobalInterceptors(new WrapResponseInterceptor(), new TimeoutInterceptor());
     await app.listen(3002);
 
     // console.log("app is run on port: 3002");
