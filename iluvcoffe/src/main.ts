@@ -1,28 +1,22 @@
 import { NestFactory } from "@nestjs/core";
-import { HttpException, ValidationPipe } from "@nestjs/common";
+import { ValidationPipe } from "@nestjs/common";
+import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 
 import { AppModule } from "./app.module";
-import { ApiKeyGuard } from "./common/guard/api-key.guard";
-import { WrapResponseInterceptor } from "./common/interceptor/wrap-response.interceptor";
-import { TimeoutInterceptor } from "./common/interceptor/timeout.interceptor";
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
 
-    app.useGlobalPipes(
-        new ValidationPipe({
-            whitelist: true,
-            transform: true,
-            forbidNonWhitelisted: true,
-            transformOptions: {
-                enableImplicitConversion: true,
-            },
-        }),
-    );
-    // app.useGlobalGuards(new ApiKeyGuard());
-    app.useGlobalInterceptors(new WrapResponseInterceptor(), new TimeoutInterceptor());
-    await app.listen(3002);
+    app.useGlobalPipes(new ValidationPipe({}));
+    const options = new DocumentBuilder()
+        .setTitle("Iluvcoffee")
+        .setDescription("Coffee Application")
+        .setVersion("0.1")
+        .build();
 
-    // console.log("app is run on port: 3002");
+    const document = SwaggerModule.createDocument(app, options);
+    SwaggerModule.setup("api", app, document);
+
+    await app.listen(3002);
 }
 bootstrap();
