@@ -5,5 +5,5 @@ export default registerAs("coffees", () => ({
     // database: {
     //     host: process.env.DATABASE_HOST,
     // },
-    database: process.env.DATABSE_HOST
+    database: process.env.DATABSE_HOST,
 }));

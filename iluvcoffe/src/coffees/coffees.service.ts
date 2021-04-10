@@ -20,12 +20,12 @@ export class CoffeesService {
         @InjectRepository(Flavor)
         private readonly flavorRepository: Repository<Flavor>,
         private readonly connection: Connection,
-        // XXX NOTE: unused variable make Jest - 'suit - test' fail XXX
+        // XXX NOTE: unused variable make Jest - 'suite - test' fail XXX
         // private readonly configService: ConfigService,
         // @Inject(coffeesConfig.KEY)
         // private readonly coffeesConfiguration: ConfigType<typeof coffeesConfig>,
     ) {
-        console.log("[!!] CoffeesService - instantiated");
+        // console.log("[!!] CoffeesService - instantiated");
         // console.log(`[!!] ConfigService - instantiated | "DATABASE_FOO": - ${coffeesConfiguration.database}`);
     } //}}}
 
@@ -65,8 +65,14 @@ export class CoffeesService {
         //{{{
         const flavors =
             updateCoffeeDto.flavors &&
-            (await Promise.all(updateCoffeeDto.flavors.map((name) => this.preloadFlavorByName(name))));
+            (await Promise.all(
+                updateCoffeeDto.flavors.map((name) => this.preloadFlavorByName(name))
+        ));
 
+        // preload will create a new instance of the entity and using the 'id'
+        // passed in will find if it already exists in the database.
+        // Then it will load that record and replace values with any new ones
+        // will return undefined if it did not find anything.
         const coffee = await this.coffeeRepository.preload({
             id: +id,
             ...updateCoffeeDto,
@@ -98,7 +104,7 @@ export class CoffeesService {
             const recommendEvent = new Event();
             recommendEvent.name = "recommend_coffee";
             recommendEvent.type = "coffee";
-            recommendEvent.payload = { coffeeid: coffee.id };
+            recommendEvent.payload = { coffeeId: coffee.id };
 
             await queryRunner.manager.save(coffee);
             await queryRunner.manager.save(recommendEvent);
