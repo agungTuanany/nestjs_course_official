@@ -1,7 +1,7 @@
 import { Inject, Injectable, NotFoundException, Scope } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Connection, Repository } from "typeorm";
-import { ConfigService, ConfigType } from "@nestjs/config";
+// import { ConfigService, ConfigType } from "@nestjs/config";
 
 import { Coffee } from "./entities/coffee.entity";
 import { Flavor } from "./entities/flavor.entity";
@@ -9,7 +9,7 @@ import { CreateCoffeeDto } from "./dto/create-coffee.dto";
 import { UpdateCoffeeDto } from "./dto/update-coffee.dto";
 import { PaginationQueryDto } from "../common/dto/pagination-query.dto";
 import { Event } from "../events/entities/event.entity";
-import coffeesConfig from "./config/coffees.config";
+// import coffeesConfig from "./config/coffees.config";
 
 @Injectable({ scope: Scope.DEFAULT })
 export class CoffeesService {
@@ -20,12 +20,13 @@ export class CoffeesService {
         @InjectRepository(Flavor)
         private readonly flavorRepository: Repository<Flavor>,
         private readonly connection: Connection,
-        private readonly configService: ConfigService,
-        @Inject(coffeesConfig.KEY)
-        private readonly coffeesConfiguration: ConfigType<typeof coffeesConfig>,
+        // XXX NOTE: unused variable make Jest - 'suit - test' fail XXX
+        // private readonly configService: ConfigService,
+        // @Inject(coffeesConfig.KEY)
+        // private readonly coffeesConfiguration: ConfigType<typeof coffeesConfig>,
     ) {
         console.log("[!!] CoffeesService - instantiated");
-        console.log(`[!!] ConfigService - instantiated | "DATABASE_FOO": - ${coffeesConfiguration.foo}`);
+        // console.log(`[!!] ConfigService - instantiated | "DATABASE_FOO": - ${coffeesConfiguration.database}`);
     } //}}}
 
     findAll(paginationQuery: PaginationQueryDto) {
