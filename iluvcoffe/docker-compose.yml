@@ -9,3 +9,12 @@ services:
     environment:
       POSTGRES_PASSWORD: pass123
       POSTGRES_DB: postgres1      # comment this if your db-name is still: 'postgres' in AppModule - class
+
+  test-db:
+    image: postgres
+    restart: always
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_PASSWORD: pass123
+      POSTGRES_DB: postgres1      # comment this if your db-name is still: 'postgres' in AppModule - class
