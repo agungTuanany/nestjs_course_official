@@ -15,7 +15,16 @@ describe("AppController (e2e)", () => {
         await app.init();
     });
 
-    it("/ (GET)", () => {
-        return request(app.getHttpServer()).get("/").expect(200).expect("Hello World!");
+    it("/ (GET)", (done) => {
+        return request(app.getHttpServer())
+        .get("/")
+        .set("Authorization", process.env.API_KEY)
+        .expect(200)
+        .expect("Hello World!")
+        .end(done);
     });
+
+    afterAll(async () => {
+        await app.close();
+    })
 });
