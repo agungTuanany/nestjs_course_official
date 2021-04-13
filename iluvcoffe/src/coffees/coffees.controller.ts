@@ -21,6 +21,7 @@ export class CoffeesController {
         private readonly request: Request,
     ) {
         console.log("[!!] CoffeesController created");
+        console.log("[!!] CoffeesController REQUEST", request.body);
     } //}}}
 
     @ApiForbiddenResponse({ description: "Forbidden" })
