@@ -1,7 +1,7 @@
 import { registerAs } from "@nestjs/config";
 
 export default registerAs("coffees", () => ({
-    foo: "bar",
+    // foo: "bar",
     // database: {
     //     host: process.env.DATABASE_HOST,
     // },

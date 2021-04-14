@@ -31,11 +31,11 @@ export class CoffeesController {
         //{{{
         // const { limit, offset } = paginationQuery;
         // await new Promise((resolve) => setTimeout(resolve, 5000));
-        console.log(`[!!] Protocol instantiated: "${protocol}"`);
+        // console.log(`[!!] Protocol instantiated: "${protocol}"`);
         return this.coffeesService.findAll(paginationQuery);
     } //}}}
 
-    @Public()
+    // @Public()
     @Get(":id")
     findOne(@Param("id", ParseIntPipe) id: number) {
         //{{{
@@ -52,6 +52,7 @@ export class CoffeesController {
     } //}}}
 
     /*-- Pipes on parameter --*/
+    // @Public()
     @Patch(":id")
     update(@Param("id") id: string, @Body(ValidationPipe) updateCoffeeDto: UpdateCoffeeDto) {
         //{{{
