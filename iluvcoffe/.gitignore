@@ -36,6 +36,3 @@ lerna-debug.log*
 # Misc
 ~*
 *~
-
-# Env
-*.env
