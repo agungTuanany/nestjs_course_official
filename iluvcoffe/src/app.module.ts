@@ -6,9 +6,7 @@ import { AppService } from "./app.service";
 import { CoffeesModule } from "./coffees/coffees.module";
 
 @Module({
-    imports: [CoffeesModule,
-        MongooseModule.forRoot("mongodb://localhost:27017/nest-course"),
-    ],
+    imports: [CoffeesModule, MongooseModule.forRoot("mongodb://localhost:27017/nest-course")],
     controllers: [AppController],
     providers: [AppService],
 })
