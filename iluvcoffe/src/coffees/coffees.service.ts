@@ -1,27 +1,23 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
+import { Model } from "mongoose";
+
 import { Coffee } from "./entities/coffee.entity";
 
 @Injectable()
 export class CoffeesService {
-    private coffees: Coffee[] = [
-        //{{{
-        {
-            id: 1,
-            name: "Salemba Roast",
-            brand: "Salemba Brand",
-            flavors: ["chocolate", "vanilla"],
-        },
-    ]; //}}}
+
+    constructor(@InjectModel(Coffee.name) private readonly coffeeModel: Model<Coffee>) {}
 
     findAll() {
         //{{{
-        return this.coffees;
+        return this.coffeeModel.find().exec();
     } //}}}
 
-    findOne(id: string) {
+    async findOne(id: string) {
         //{{{
         // throw "A Random Error";
-        const coffee = this.coffees.find((item) => item.id === +id);
+        const coffee = await this.coffeeModel.findOne({ _id: id }).exec()
 
         if (!coffee) {
             // throw new HttpException(`Coffee #${id} not found`, HttpStatus.NOT_FOUND);
@@ -34,9 +30,7 @@ export class CoffeesService {
 
     create(createCoffeeDto: any) {
         //{{{
-        this.coffees.push(createCoffeeDto);
-
-        return createCoffeeDto;
+        const coffee = new this.coffeeModel(createCoffeeDto);
     } //}}}
 
     update(id: string, updateCoffeeDto: any) {
