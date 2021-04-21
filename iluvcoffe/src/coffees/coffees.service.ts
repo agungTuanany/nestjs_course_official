@@ -3,6 +3,8 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 
 import { Coffee } from "./entities/coffee.entity";
+import { CreateCoffeeDto } from "./dto/create-coffee.dto";
+import { UpdateCoffeeDto } from "./dto/update-coffee.dto";
 
 @Injectable()
 export class CoffeesService {
@@ -28,26 +30,30 @@ export class CoffeesService {
         // return this.coffees.find(item => item.id === +id);
     } //}}}
 
-    create(createCoffeeDto: any) {
+    create(createCoffeeDto: CreateCoffeeDto) {
         //{{{
         const coffee = new this.coffeeModel(createCoffeeDto);
+
+        return coffee.save();
     } //}}}
 
-    update(id: string, updateCoffeeDto: any) {
+    async update(id: string, updateCoffeeDto: UpdateCoffeeDto) {
         //{{{
-        const existingCoffee = this.findOne(id);
+        const existingCoffee = await this.coffeeModel
+        .findOneAndUpdate({ _id: id }, { $set: updateCoffeeDto }, { new: true })
+        .exec();
 
-        if (existingCoffee) {
-            // update the existing entity
+        if (!existingCoffee) {
+            throw new NotFoundException(`[!!]UPDATE: Coffee #${id} not found`);
         }
+
+        return existingCoffee;
     } //}}}
 
-    remove(id: string) {
+    async remove(id: string) {
         //{{{
-        const coffeeIndex = this.coffees.findIndex((item) => item.id === +id);
+        const coffee = await this.findOne(id);
 
-        if (coffeeIndex >= 0) {
-            this.coffees.splice(coffeeIndex, 1);
-        }
+        return coffee.remove();
     } //}}}
 }

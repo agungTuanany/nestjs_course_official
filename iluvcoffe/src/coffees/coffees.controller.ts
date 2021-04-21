@@ -15,16 +15,16 @@ export class CoffeesController {
     } //}}}
 
     @Get(":id")
-    findOne(@Param("id") id: number) {
+    findOne(@Param("id") id: string) {
         //{{{
-        console.log("GET ===>", typeof id);
+        // console.log("GET ===>", typeof id);
         return this.coffeesService.findOne("" + id);
     } //}}}
 
     @Post()
     create(@Body() createCoffeeDto: CreateCoffeeDto) {
         //{{{
-        console.log("===>", createCoffeeDto instanceof CreateCoffeeDto);
+        // console.log("===>", createCoffeeDto instanceof CreateCoffeeDto);
         return this.coffeesService.create(createCoffeeDto);
     } //}}}
 
