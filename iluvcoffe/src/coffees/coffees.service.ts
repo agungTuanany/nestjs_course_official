@@ -5,15 +5,17 @@ import { Model } from "mongoose";
 import { Coffee } from "./entities/coffee.entity";
 import { CreateCoffeeDto } from "./dto/create-coffee.dto";
 import { UpdateCoffeeDto } from "./dto/update-coffee.dto";
+import { PaginationQueryDto } from "../common/dto/pagination-query.dto";
 
 @Injectable()
 export class CoffeesService {
 
     constructor(@InjectModel(Coffee.name) private readonly coffeeModel: Model<Coffee>) {}
 
-    findAll() {
+    findAll(paginationQuery: PaginationQueryDto) {
         //{{{
-        return this.coffeeModel.find().exec();
+        const { limit, offset } = paginationQuery;
+        return this.coffeeModel.find().skip(offset).limit(limit).exec();
     } //}}}
 
     async findOne(id: string) {
