@@ -6,7 +6,7 @@ export class Event extends mongoose.Document {
     @Prop()
     type: string;
 
-    @Prop()
+    @Prop({ index: true })
     name: string;
 
     @Prop(mongoose.SchemaTypes.Mixed)
