@@ -14,3 +14,4 @@ export class Event extends mongoose.Document {
 }
 
 export const EventSchema = SchemaFactory.createForClass(Event);
+EventScema.index({ name: 1, type: -1 });
